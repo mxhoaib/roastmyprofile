@@ -47,3 +47,21 @@ The /exec URL isn't a secret, but anyone can post to it, so the script length-li
 - Only collect public profile links, as the notice says. Delete rows on request.
 - If you serve EU/UK visitors, add a short privacy note (what is stored, why, how to request deletion).
 - Never put API keys or tokens in `config.js` or any front-end file.
+
+## Optional score submissions (added with the viral hooks)
+Below each roast there is an opt-in **Submit my score** button. It POSTs to the same `COLLECT_ENDPOINT` with these extra fields:
+`kind=score`, `name` (nickname, max 24 chars, or `anonymous`), `score` (savagery, e.g. `7.5`), `type`, `heat`, plus the usual `link`
+(the profile link if one was entered, otherwise the page URL), `platform` (`score:<type>`), `timestamp`, `page`.
+
+The script above will still store these as ordinary rows (name and score are dropped). To keep them, add before `appendRow`:
+```js
+if (p.kind === 'score') {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName('scores') || ss.insertSheet('scores');
+  sh.appendRow([String(p.timestamp||'').slice(0,40), String(p.name||'').slice(0,24), Number(p.score)||0,
+                String(p.type||'').slice(0,20), String(p.heat||'').slice(0,10), String(p.link||'').slice(0,300), new Date()]);
+  return ContentService.createTextOutput('ok');
+}
+```
+There is **no public leaderboard** on the site. The page only shows "Your best scores on this device" (localStorage). Do not present
+submitted scores as a global ranking unless you build and moderate one.

@@ -14,15 +14,15 @@
 <div class="bg" aria-hidden="true"></div>
 <header class="wrap top"><div class="logo"><svg viewBox="0 0 24 32" class="flame" aria-hidden="true"><path d="M12 1c2 6 9 9 9 18a9 9 0 0 1-18 0c0-5 3-7 4-11 1 3 2 4 3 4 0-4 0-7 2-11z"/></svg>RoastMyProfile</div><span class="pill">Funny · kind · free</span></header>
 <main class="wrap">
-<section class="hero"><h1>Your profile,<br><span class="grad">lovingly roasted.</span></h1><p class="sub">Paste your profile link and bio. Get a funny, kind roast, a score out of 10 and one real tip. We never scrape your profile.</p></section>
+<section class="hero"><h1>Your profile,<br><span class="grad">lovingly roasted.</span></h1><p class="sub">Paste your profile link and bio. Get a funny, kind roast, a score out of 10 and one real tip. We never scrape your profile.</p><p class="heroctas"><a class="cta" href="#app">🔥 Roast me free</a><a class="cta heropay" href="pay/?item=fix5" target="_blank" rel="noopener">✨ Fix my profile <span class="price">$5</span></a><a class="ghost heropay2" href="pay/?item=rewrite" target="_blank" rel="noopener">Polished rewrite <span class="price">$15</span></a></p><p id="stats" class="muted small stats" hidden></p></section>
 <section class="panel" id="app">
 <div class="types" role="radiogroup" aria-label="Profile type">
 <button role="radio" aria-checked="true" data-type="linkedin" class="on">LinkedIn</button>
 <button role="radio" aria-checked="false" data-type="instagram">Instagram</button>
 <button role="radio" aria-checked="false" data-type="dating">Dating</button></div>
 <div class="opts"><div class="seg" role="radiogroup" aria-label="Heat level"><button role="radio" aria-checked="true" data-heat="mild" class="on">😇 Mild</button><button role="radio" aria-checked="false" data-heat="spicy">🌶️ Spicy</button></div>
-<label class="friend"><input type="checkbox" id="friend"> Roast a friend</label></div>
-<p id="friendnote" class="muted small" hidden>Paste your friend's bio, roast it, then send them the link. It opens with their roast.</p>
+<label class="friend"><input type="checkbox" id="friend" data-ev="roast-a-friend-toggle"> 👯 Roast a friend</label></div>
+<p id="friendnote" class="muted small" hidden>Paste your friend's public profile link (and their bio if you have it), roast it, then send them the roast link. It opens straight to their roast with a “Roast them back” button.</p>
 <label for="purl" class="urllbl">Public profile link <span class="muted">(Instagram, LinkedIn, X, TikTok, Fiverr…)</span></label>
 <input type="url" id="purl" inputmode="url" maxlength="300" placeholder="https://www.instagram.com/yourhandle" autocomplete="url">
 <p class="notice small" id="urlnotice">🔔 <b>Heads-up:</b> the link you submit is <b>saved</b> (link, platform, time and page) so we can improve roasts and follow up on paid fixes. We do not visit or scrape your profile. Your pasted bio text is not saved. Don't submit a link you don't want stored.</p>
@@ -35,16 +35,19 @@
 <ol id="lines" class="lines"></ol>
 <div class="tip"><b>One real tip:</b> <span id="tip"></span></div>
 <a class="cta fix" id="fix" href="pay/?item=fix5" target="_blank" rel="noopener">✨ Fix it for $5 · Pay with PayPal</a>
-<div class="seg sizes" role="radiogroup" aria-label="Card size"><button role="radio" aria-checked="true" data-size="4x5" class="on">4:5</button><button role="radio" aria-checked="false" data-size="9x16">9:16 Story</button><button role="radio" aria-checked="false" data-size="1x1">1:1</button></div>
+<div class="seg sizes" role="radiogroup" aria-label="Card size"><button role="radio" aria-checked="true" data-size="4x5" class="on">4:5</button><button role="radio" aria-checked="false" data-size="9x16">9:16 Story</button><button role="radio" aria-checked="false" data-size="1x1">1:1</button><button role="radio" aria-checked="false" data-size="wide">1200×630</button></div>
 <canvas id="card" width="1080" height="1350" aria-label="Share card preview"></canvas>
-<div class="row wrapr"><button id="dl" class="ghost">⬇ Download card</button><button id="share" class="ghost">📤 Share</button><button id="link" class="ghost">🔗 Copy link</button><button id="copy" class="ghost">Copy text</button>
-<a id="x" class="ghost" target="_blank" rel="noopener" href="#">X</a><button id="tt" class="ghost">TikTok</button><button id="ig" class="ghost">IG Story</button><button id="again" class="ghost">🔁 Roast again</button></div>
+<div class="row wrapr"><button id="dl" class="ghost">⬇ Download card</button><button id="share" class="ghost" data-ev="share-native">📤 Share</button><button id="link" class="ghost" data-ev="share-copy-link">🔗 Copy roast link</button><button id="copy" class="ghost">Copy text</button>
+<a id="x" class="ghost" target="_blank" rel="noopener" href="#" data-ev="share-x">X</a><a id="fb" class="ghost" target="_blank" rel="noopener" href="#" data-ev="share-facebook">Facebook</a><a id="li" class="ghost" target="_blank" rel="noopener" href="#" data-ev="share-linkedin">LinkedIn</a><a id="rd" class="ghost" target="_blank" rel="noopener" href="#" data-ev="share-reddit">Reddit</a><button id="tt" class="ghost" data-ev="share-tiktok">TikTok</button><button id="ig" class="ghost" data-ev="share-ig-story">IG Story</button><button id="again" class="ghost">🔁 Roast again</button></div>
 <a class="cta upsell" href="pay/?item=rewrite" target="_blank" rel="noopener">Pay with PayPal · Polished rewrite $15 →</a>
+<div class="friendbox"><b>👯 Roast a friend next</b><p class="muted small">Paste their public profile link. You'll get a roast link to send them. Like any submitted link, it is saved (see the notice above).</p><div class="row"><input type="url" id="furl" inputmode="url" maxlength="300" placeholder="https://www.linkedin.com/in/yourfriend" aria-label="Friend's profile link"><button id="froast" class="cta" data-ev="roast-a-friend">🔥 Roast my friend</button></div></div>
+<div id="board" class="boardbox"></div>
+<div class="submitbox"><label for="nick" class="small">Nickname for score submission (optional)</label><div class="row"><input id="nick" maxlength="24" placeholder="e.g. BuzzwordQueen" autocomplete="nickname"><button id="submit" class="ghost" data-ev="leaderboard-submit">📮 Submit my score</button></div><p class="muted small">Optional. Sends your nickname, score, profile type, and profile link (if you entered one) to the site owner. There is no public leaderboard yet.</p></div>
 <p class="muted small" id="toast" role="status"></p>
 </section>
 </main>
 <footer class="wrap muted small">Submitted profile links are stored by the site owner; bio text stays in your browser. Just for fun. We never joke about looks, race, gender, religion or bodies.</footer>
-<script src="config.js"></script><script src="engine.js"></script><script src="app.js"></script><script data-goatcounter="https://d3dddsites.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script src="config.js"></script><script src="engine.js"></script><script src="viral.js"></script><script src="app.js"></script><script data-goatcounter="https://d3dddsites.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script>/* Records pay/download clicks as GoatCounter events; does nothing unless GoatCounter is loaded. */
 document.addEventListener('click',function(e){var el=e.target.closest&&e.target.closest('a,button');if(!el||!window.goatcounter||!window.goatcounter.count)return;var h=el.getAttribute('href')||'',id=el.id||'',t=(el.textContent||'').trim().slice(0,40),m=h.match(/pay\/\?item=([\w-]+)/),ev=null;if(m)ev='pay-'+m[1];else if(el.hasAttribute('download')||/^(dl|svg|png|dxf|download)/i.test(id)||/download/i.test(t))ev='download-'+(id||t.toLowerCase().replace(/\W+/g,'-'));if(ev)window.goatcounter.count({path:(location.pathname.split('/')[1]||'root')+'/'+ev,title:t,event:true})},true);</script>
 </body></html>
