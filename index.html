@@ -1,0 +1,44 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RoastMyProfile — a funny, kind roast of your profile</title>
+<meta name="description" content="Paste your LinkedIn, Instagram or dating bio. Get a funny-but-kind roast, a score and one real tip.">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="canonical" href="https://mxhoaib.github.io/roastmyprofile/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="RoastMyProfile">
+<meta property="og:title" content="RoastMyProfile: get your bio lovingly roasted 🔥">
+<meta property="og:description" content="Paste your LinkedIn, Instagram or dating bio. Get a funny roast, a Savagery score and one real tip.">
+<meta property="og:url" content="https://mxhoaib.github.io/roastmyprofile/"><meta property="og:image" content="https://mxhoaib.github.io/roastmyprofile/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="RoastMyProfile: your profile, lovingly roasted">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="RoastMyProfile: get your bio lovingly roasted 🔥">
+<meta name="twitter:description" content="Funny-but-kind roasts of your LinkedIn, Instagram or dating bio."><meta name="twitter:image" content="https://mxhoaib.github.io/roastmyprofile/og-image.png">
+<link rel="stylesheet" href="style.css"></head><body>
+<div class="bg" aria-hidden="true"></div>
+<header class="wrap top"><div class="logo"><svg viewBox="0 0 24 32" class="flame" aria-hidden="true"><path d="M12 1c2 6 9 9 9 18a9 9 0 0 1-18 0c0-5 3-7 4-11 1 3 2 4 3 4 0-4 0-7 2-11z"/></svg>RoastMyProfile</div><span class="pill">Demo · runs on your device</span></header>
+<main class="wrap">
+<section class="hero"><h1>Your profile,<br><span class="grad">lovingly roasted.</span></h1><p class="sub">Paste your bio. Get a funny, kind roast, a score out of 10 and one real tip. Nothing leaves your browser.</p></section>
+<section class="panel" id="app">
+<div class="types" role="radiogroup" aria-label="Profile type">
+<button role="radio" aria-checked="true" data-type="linkedin" class="on">LinkedIn</button>
+<button role="radio" aria-checked="false" data-type="instagram">Instagram</button>
+<button role="radio" aria-checked="false" data-type="dating">Dating</button></div>
+<div class="opts"><div class="seg" role="radiogroup" aria-label="Heat level"><button role="radio" aria-checked="true" data-heat="mild" class="on">😇 Mild</button><button role="radio" aria-checked="false" data-heat="spicy">🌶️ Spicy</button></div>
+<label class="friend"><input type="checkbox" id="friend"> Roast a friend</label></div>
+<p id="friendnote" class="muted small" hidden>Paste your friend's bio, roast it, then send them the link. It opens with their roast.</p>
+<label for="txt" class="sr">Profile text</label>
+<textarea id="txt" rows="7" placeholder="Paste your bio or About section here…"></textarea>
+<div class="row"><button id="sample" class="ghost">Try a sample</button><span id="count" class="muted">0 characters</span><button id="go" class="cta">🔥 Roast me</button></div>
+</section>
+<section id="out" class="panel result" hidden aria-live="polite">
+<div class="scorebox"><div class="score"><span id="score">0</span><small>/10</small></div><div id="verdict" class="verdict"></div></div>
+<ol id="lines" class="lines"></ol>
+<div class="tip"><b>One real tip:</b> <span id="tip"></span></div>
+<a class="cta fix" id="fix" href="https://paypal.me/imshoi/5USD" target="_blank" rel="noopener">✨ Fix it for $5</a>
+<div class="seg sizes" role="radiogroup" aria-label="Card size"><button role="radio" aria-checked="true" data-size="4x5" class="on">4:5</button><button role="radio" aria-checked="false" data-size="9x16">9:16 Story</button><button role="radio" aria-checked="false" data-size="1x1">1:1</button></div>
+<canvas id="card" width="1080" height="1350" aria-label="Share card preview"></canvas>
+<div class="row wrapr"><button id="dl" class="ghost">⬇ Download card</button><button id="share" class="ghost">📤 Share</button><button id="link" class="ghost">🔗 Copy link</button><button id="copy" class="ghost">Copy text</button>
+<a id="wa" class="ghost" target="_blank" rel="noopener" href="#">WhatsApp</a><a id="x" class="ghost" target="_blank" rel="noopener" href="#">X</a><button id="tt" class="ghost">TikTok</button><button id="ig" class="ghost">IG Story</button><button id="again" class="ghost">🔁 Roast again</button></div>
+<a class="cta upsell" href="https://paypal.me/imshoi" target="_blank" rel="noopener">Get the polished rewrite →</a>
+<p class="muted small" id="toast" role="status"></p>
+</section>
+</main>
+<footer class="wrap muted small">Just for fun. We never joke about looks, race, gender, religion or bodies.</footer>
+<script src="engine.js"></script><script src="app.js"></script></body></html>
