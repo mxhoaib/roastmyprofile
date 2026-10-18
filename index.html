@@ -12,9 +12,9 @@
 <meta name="twitter:description" content="Funny-but-kind roasts of your LinkedIn, Instagram or dating bio."><meta name="twitter:image" content="https://mxhoaib.github.io/roastmyprofile/og-image.png">
 <link rel="stylesheet" href="style.css"></head><body>
 <div class="bg" aria-hidden="true"></div>
-<header class="wrap top"><div class="logo"><svg viewBox="0 0 24 32" class="flame" aria-hidden="true"><path d="M12 1c2 6 9 9 9 18a9 9 0 0 1-18 0c0-5 3-7 4-11 1 3 2 4 3 4 0-4 0-7 2-11z"/></svg>RoastMyProfile</div><span class="pill">Demo · runs on your device</span></header>
+<header class="wrap top"><div class="logo"><svg viewBox="0 0 24 32" class="flame" aria-hidden="true"><path d="M12 1c2 6 9 9 9 18a9 9 0 0 1-18 0c0-5 3-7 4-11 1 3 2 4 3 4 0-4 0-7 2-11z"/></svg>RoastMyProfile</div><span class="pill">Funny · kind · free</span></header>
 <main class="wrap">
-<section class="hero"><h1>Your profile,<br><span class="grad">lovingly roasted.</span></h1><p class="sub">Paste your bio. Get a funny, kind roast, a score out of 10 and one real tip. Nothing leaves your browser.</p></section>
+<section class="hero"><h1>Your profile,<br><span class="grad">lovingly roasted.</span></h1><p class="sub">Paste your profile link and bio. Get a funny, kind roast, a score out of 10 and one real tip. We never scrape your profile.</p></section>
 <section class="panel" id="app">
 <div class="types" role="radiogroup" aria-label="Profile type">
 <button role="radio" aria-checked="true" data-type="linkedin" class="on">LinkedIn</button>
@@ -23,8 +23,11 @@
 <div class="opts"><div class="seg" role="radiogroup" aria-label="Heat level"><button role="radio" aria-checked="true" data-heat="mild" class="on">😇 Mild</button><button role="radio" aria-checked="false" data-heat="spicy">🌶️ Spicy</button></div>
 <label class="friend"><input type="checkbox" id="friend"> Roast a friend</label></div>
 <p id="friendnote" class="muted small" hidden>Paste your friend's bio, roast it, then send them the link. It opens with their roast.</p>
+<label for="purl" class="urllbl">Public profile link <span class="muted">(Instagram, LinkedIn, X, TikTok, Fiverr…)</span></label>
+<input type="url" id="purl" inputmode="url" maxlength="300" placeholder="https://www.instagram.com/yourhandle" autocomplete="url">
+<p class="notice small" id="urlnotice">🔔 <b>Heads-up:</b> the link you submit is <b>saved</b> (link, platform, time and page) so we can improve roasts and follow up on paid fixes. We do not visit or scrape your profile. Your pasted bio text is not saved. Don't submit a link you don't want stored.</p>
 <label for="txt" class="sr">Profile text</label>
-<textarea id="txt" rows="7" placeholder="Paste your bio or About section here…"></textarea>
+<textarea id="txt" rows="7" placeholder="Optional but funnier: paste your bio or About section here…"></textarea>
 <div class="row"><button id="sample" class="ghost">Try a sample</button><span id="count" class="muted">0 characters</span><button id="go" class="cta">🔥 Roast me</button></div>
 </section>
 <section id="out" class="panel result" hidden aria-live="polite">
@@ -35,10 +38,15 @@
 <div class="seg sizes" role="radiogroup" aria-label="Card size"><button role="radio" aria-checked="true" data-size="4x5" class="on">4:5</button><button role="radio" aria-checked="false" data-size="9x16">9:16 Story</button><button role="radio" aria-checked="false" data-size="1x1">1:1</button></div>
 <canvas id="card" width="1080" height="1350" aria-label="Share card preview"></canvas>
 <div class="row wrapr"><button id="dl" class="ghost">⬇ Download card</button><button id="share" class="ghost">📤 Share</button><button id="link" class="ghost">🔗 Copy link</button><button id="copy" class="ghost">Copy text</button>
-<a id="wa" class="ghost" target="_blank" rel="noopener" href="#">WhatsApp</a><a id="x" class="ghost" target="_blank" rel="noopener" href="#">X</a><button id="tt" class="ghost">TikTok</button><button id="ig" class="ghost">IG Story</button><button id="again" class="ghost">🔁 Roast again</button></div>
+<a id="x" class="ghost" target="_blank" rel="noopener" href="#">X</a><button id="tt" class="ghost">TikTok</button><button id="ig" class="ghost">IG Story</button><button id="again" class="ghost">🔁 Roast again</button></div>
 <a class="cta upsell" href="pay/?item=rewrite" target="_blank" rel="noopener">Pay with PayPal · Polished rewrite $15 →</a>
 <p class="muted small" id="toast" role="status"></p>
 </section>
 </main>
-<footer class="wrap muted small">Just for fun. We never joke about looks, race, gender, religion or bodies.</footer>
-<script src="engine.js"></script><script src="app.js"></script></body></html>
+<footer class="wrap muted small">Submitted profile links are stored by the site owner; bio text stays in your browser. Just for fun. We never joke about looks, race, gender, religion or bodies.</footer>
+<script src="config.js"></script><script src="engine.js"></script><script src="app.js"></script><!-- GoatCounter: privacy-friendly analytics with no cookies. OFF until configured: put your code in place of YOURCODE and uncomment. See ANALYTICS_SETUP.md.
+<script data-goatcounter="https://YOURCODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+-->
+<script>/* Records pay/download clicks as GoatCounter events; does nothing unless GoatCounter is loaded. */
+document.addEventListener('click',function(e){var el=e.target.closest&&e.target.closest('a,button');if(!el||!window.goatcounter||!window.goatcounter.count)return;var h=el.getAttribute('href')||'',id=el.id||'',t=(el.textContent||'').trim().slice(0,40),m=h.match(/pay\/\?item=([\w-]+)/),ev=null;if(m)ev='pay-'+m[1];else if(el.hasAttribute('download')||/^(dl|svg|png|dxf|download)/i.test(id)||/download/i.test(t))ev='download-'+(id||t.toLowerCase().replace(/\W+/g,'-'));if(ev)window.goatcounter.count({path:(location.pathname.split('/')[1]||'root')+'/'+ev,title:t,event:true})},true);</script>
+</body></html>

@@ -22,13 +22,25 @@ const b64e=s=>{const b=new TextEncoder().encode(s);let bin='';b.forEach(c=>bin+=
 const b64d=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';const bin=atob(s);return new TextDecoder().decode(Uint8Array.from(bin,c=>c.charCodeAt(0)))};
 function link(){const p={t:type,h:heat,s:seed,b:lastText.slice(0,MAX_HASH_BIO)};return BASE+'#r='+b64e(JSON.stringify(p))}
 function localLink(){return location.href.split('#')[0]+link().slice(BASE.length)}
-function run(keepSeed){const v=txt.value.trim();if(v.length<3){txt.focus();txt.setAttribute('aria-invalid','true');txt.placeholder='Paste a bio first. Even one line works! (or tap “Try a sample”)';$('#count').textContent='👆 Paste a bio first, or try a sample';return}
- txt.removeAttribute('aria-invalid');if(!keepSeed)seed=((seed*1103515245+12345)^Date.now())>>>0;lastText=v;last=RoastEngine.roast(v,type,seed,heat==='spicy');render()}
+const PLAT=[[/(^|\.)instagram\.com$/,'Instagram','instagram'],[/(^|\.)linkedin\.com$/,'LinkedIn','linkedin'],[/(^|\.)(x|twitter)\.com$/,'X','instagram'],[/(^|\.)tiktok\.com$/,'TikTok','instagram'],[/(^|\.)fiverr\.com$/,'Fiverr','linkedin'],[/(^|\.)upwork\.com$/,'Upwork','linkedin'],[/(^|\.)facebook\.com$/,'Facebook','instagram'],[/(^|\.)youtube\.com$/,'YouTube','instagram'],[/(^|\.)github\.com$/,'GitHub','linkedin'],[/(^|\.)(tinder|bumble|hinge)\.(com|co)$/,'Dating app','dating']];
+function parseUrl(raw){raw=(raw||'').trim();if(!raw)return null;if(!/^https?:\/\//i.test(raw))raw='https://'+raw;let u;try{u=new URL(raw)}catch(e){return{bad:true}}if(!/^https?:$/.test(u.protocol)||!u.hostname.includes('.'))return{bad:true};
+ const h=u.hostname.toLowerCase().replace(/^www\./,''),m=PLAT.find(p=>p[0].test(h));const seg=u.pathname.split('/').filter(Boolean).filter(x=>!/^(in|company|user|profile|people)$/i.test(x));
+ const handle=(seg[0]||'').replace(/^@/,'').slice(0,40);return{url:u.href.slice(0,300),platform:m?m[1]:h,type:m?m[2]:null,handle}}
+const PL={Instagram:'An Instagram link: a carefully curated museum of brunches.',LinkedIn:'A LinkedIn URL: the only social network where people humble-brag in bullet points.',X:'An X profile: hot takes served at room temperature.',TikTok:'A TikTok account: your attention span called; it left after 7 seconds.',Fiverr:'A Fiverr gig: "I will do anything for $5", including this roast.',Upwork:'Upwork: where "quick task" means three revisions and a call.',GitHub:'A GitHub profile: green squares are not a personality, but nice try.',Facebook:'A Facebook profile in 2026? Bold. Vintage, even.',YouTube:'A YouTube channel: please like, subscribe and hit the roast bell.'};
+function handleLine(p,r){const h=p.handle;if(!h)return null;const L=[`"@${h}": a handle that clearly lost a fight with "already taken".`,`"@${h}" sounds like a Wi-Fi network nobody trusts.`,`"@${h}": the username you pick at 2am and keep out of stubbornness.`];if(/\d{3,}/.test(h))return `"@${h}": the numbers in your handle are telling us how many people got there first.`;if(/[._]{2,}|_$/.test(h))return `"@${h}": that many underscores is a cry for help.`;return L[r%L.length]}
+function collect(p){const ep=(window.RMP_CONFIG&&window.RMP_CONFIG.COLLECT_ENDPOINT||'').trim();if(!ep||!p||p.bad)return;
+ const data={link:p.url,platform:p.platform,timestamp:new Date().toISOString(),page:location.origin+location.pathname};
+ try{const body=new URLSearchParams(data);fetch(ep,{method:'POST',mode:'no-cors',body,keepalive:true}).catch(()=>{})}catch(e){}}
+let lastUrl=null;
+function run(keepSeed){const P=parseUrl($('#purl').value);if(P&&P.bad){$('#purl').setAttribute('aria-invalid','true');$('#purl').focus();toast('That link doesn\'t look right. Try something like https://instagram.com/yourhandle');return}$('#purl').removeAttribute('aria-invalid');
+ if(P&&P.type&&!keepSeed)setType(P.type);let v=txt.value.trim();if(v.length<3&&P)v=(P.handle||P.platform)+' on '+P.platform;
+ if(v.length<3){txt.focus();txt.setAttribute('aria-invalid','true');txt.placeholder='Paste a bio first. Even one line works! (or tap “Try a sample”)';$('#count').textContent='👆 Paste a bio first, or try a sample';return}
+ txt.removeAttribute('aria-invalid');if(!keepSeed)seed=((seed*1103515245+12345)^Date.now())>>>0;lastText=txt.value.trim()||v;last=RoastEngine.roast(v,type,seed,heat==='spicy');
+ if(P){const extra=[handleLine(P,seed),PL[P.platform]||`A ${P.platform} profile: even the URL is trying too hard.`].filter(Boolean);last.lines=extra.concat(last.lines).slice(0,6);if(!keepSeed&&(!lastUrl||lastUrl!==P.url)){collect(P);lastUrl=P.url}}render()}
 function render(){const o=$('#out');o.hidden=false;$('#score').textContent=savage();$('#verdict').textContent='Savagery score · '+heatLabel();
  const ol=$('#lines');ol.innerHTML='';last.lines.forEach((l,i)=>{const li=document.createElement('li');li.textContent=l;li.style.animationDelay=i*120+'ms';ol.appendChild(li)});
  $('#tip').textContent=last.tip;toast('');draw();
  const msg=`My ${type} bio scored ${savage()}/10 on the Savagery scale 🔥 "${last.lines[0]}"`;
- $('#wa').href='https://wa.me/?text='+encodeURIComponent(msg+' '+link());
  $('#x').href='https://twitter.com/intent/tweet?text='+encodeURIComponent(msg)+'&url='+encodeURIComponent(link());
  o.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})}
 const heatLabel=()=>{const s=savage();return s>=8?'Burnt to a crisp 🔥':s>=6?'Well done':s>=4?'Medium':'Lightly toasted'};
