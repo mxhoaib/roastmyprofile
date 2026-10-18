@@ -34,4 +34,4 @@ The demo is 100% client-side: a template engine (`engine.js`) plus a canned line
 - Mid-tier model: ≈ $0.0005–0.002 per roast
 - Hosting: Cloudflare Pages + Workers free tier = $0 up to 100k requests/day.
 
-One "polished rewrite" sale (e.g. $5 via paypal.me/imshoi) covers tens of thousands of roasts.
+One "polished rewrite" sale (e.g. $5 via the PayPal button) covers tens of thousands of roasts.
